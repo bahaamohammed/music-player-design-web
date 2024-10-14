@@ -19,13 +19,13 @@
                 </div>
             </nav>
             <img src="media/thumbnail.png" alt="Music Thumbnail" class="song-img">
-            <h1>Despacito</h1>
-            <p>Luis Fonsi Ft. Puerto Rican</p>
+            <h1 id="song-name"></h1>
             <audio controls id="song" hidden>
-                <source src="media/Suspense.mp3" type="audio/mpeg">
+                <source src="" type="audio/mpeg">
             </audio>
             <input type="range" name="progress" id="progress" value="0">
-
+            <input type="file" id="fileInput" accept="audio/mp3" multiple>
+            <div><i class="fa fa-solid fa-cloud-arrow-up" id="upload"></i></div>
             <div class="controls">
                 <div><i class="fa fa-solid fa-backward" id="previous"></i></div>
                 <div><i class="fa fa-solid fa-play" id="play"></i></div>
