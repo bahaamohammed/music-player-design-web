@@ -103,3 +103,11 @@ nav .circle:hover{
     background-color: #fff;
     color: #00469B;
 }
+.controls div i {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
