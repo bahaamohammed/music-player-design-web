@@ -6,6 +6,7 @@ let next = document.getElementById("next");
 let fileInput = document.getElementById("fileInput");
 let upload = document.getElementById("upload");
 let song_name = document.getElementById("song-name");
+let current_time = document.getElementById("current-time");
 
 // Placeholder for the list of songs
 let songs = [];
@@ -32,7 +33,7 @@ function loadSong(songIndex) {
     } else {
         controls.style.display = 'flex'; // Show controls if songs are available
     }
-    
+
     if (songs.length > 0) {
         let file = songs[songIndex];
 
@@ -53,6 +54,7 @@ function loadSong(songIndex) {
         // Wait for the metadata to be loaded before setting progress.max
         song.addEventListener('loadedmetadata', function() {
             progress.max = Math.round(song.duration); // Set the max value to song duration
+            current_time.innerHTML = "00:00 / " + convertToTimeDuration(Math.round(song.duration)); 
         });
 
         song.play().catch(error => {
@@ -80,6 +82,7 @@ play.addEventListener("click", function() {
 // Update progress bar as the song plays
 song.ontimeupdate = function() {
     progress.value = song.currentTime;
+    current_time.innerHTML = convertToTimeDuration(Math.round(song.currentTime)) + " / " + convertToTimeDuration(Math.round(song.duration)); 
 }
 
 // Reset play button icon when the song ends
@@ -124,3 +127,21 @@ song.addEventListener('pause', function() {
     clearInterval(progressInterval);
     progressInterval = null;
 });
+
+function convertToTimeDuration(seconds) {
+    // Ensure the input is a positive integer
+    if (seconds < 0) {
+        throw new Error("Seconds cannot be negative");
+    }
+
+    // Calculate minutes and remaining seconds
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    // Format minutes and seconds to always be two digits
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    // Return the formatted time
+    return `${formattedMinutes}:${formattedSeconds}`;
+}
